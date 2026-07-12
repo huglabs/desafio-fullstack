@@ -29,4 +29,17 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+
+    public function rooms(){
+        return $this->belongsToMany(Room::class, 'room_user')->withPivot('joined_at')->withTimestamps();
+    }
+
+    public function messages(){
+        return $this->hasMany(Message::class);
+    }
+
+    public function createdRooms(){
+        return $this->hasMany(Room::class, 'created_by');
+    }
 }
