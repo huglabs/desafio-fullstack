@@ -6,6 +6,7 @@ use App\Models\Message;
 use App\Repositories\MessageRepository;
 use App\Repositories\RoomRepository;
 use Illuminate\Validation\ValidationException;
+use App\Events\MessageSent;
 
 class MessageService {
 
@@ -35,7 +36,10 @@ class MessageService {
             'body' => $body,
         ]);
 
-        return $message->load('user');
+        $message->load('user');
+        event(new MessageSent($message));
+
+        return $message;
     }
 
     public function historyMessage(int $roomId, int $perPage = 20){

@@ -29,6 +29,19 @@ services:
     networks:
       - chat_network
 
+  queue:
+    build:
+      context: ./docker/php
+    container_name: chat_queue
+    working_dir: /var/www
+    volumes:
+      - ./backend:/var/www
+    command: php artisan queue:work
+    depends_on:
+      - postgres
+    networks:
+      - chat_network
+
   postgres:
     image: postgres:16-alpine
     container_name: chat_postgres
