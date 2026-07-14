@@ -4,6 +4,7 @@ import { Button } from "../../../components/Button"
 import { Input } from "../../../components/Input"
 import { Link } from "react-router-dom"
 import { useLogin } from "../../../hooks/useLogin"
+import { Mail, Lock } from 'lucide-react';
 
 export function LoginPage(){
 
@@ -13,6 +14,9 @@ export function LoginPage(){
 
     async function handleSubmit(e: React.FormEvent<HTMLFormElement>){
         e.preventDefault();
+        if(loading){
+            return;
+        }
         await loginUser(email, password);
     }
     
@@ -37,6 +41,7 @@ export function LoginPage(){
                     type="email" 
                     placeholder="teste@gmail.com" 
                     value={email}
+                    icon={Mail}
                     required
                     onChange={(e) => setEmail(e.target.value)}
                 />
@@ -46,6 +51,7 @@ export function LoginPage(){
                     type="password" 
                     placeholder="******" 
                     value={password}
+                    icon={Lock}
                     required
                     onChange={(e) => setPassword(e.target.value)}
                 />
