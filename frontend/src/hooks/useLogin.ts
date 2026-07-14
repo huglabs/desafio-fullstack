@@ -20,7 +20,7 @@ export function useLogin(){
             localStorage.setItem("token", token);
             localStorage.setItem("user", JSON.stringify(user));
             setUser(user);
-            navigation("/rooms")
+            navigation("/chat")
         }catch(err){
             setError("Email ou senha invalidos");
             throw err;

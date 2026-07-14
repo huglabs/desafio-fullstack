@@ -30,7 +30,7 @@ export function useRegister() {
             localStorage.setItem("user", JSON.stringify(user));
 
             setUser(user);
-            navigation("/rooms")
+            navigation("/chat")
         }catch(err){
             setError("Error ao criar conta");
             throw err;
