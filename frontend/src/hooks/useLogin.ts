@@ -21,9 +21,9 @@ export function useLogin(){
             localStorage.setItem("user", JSON.stringify(user));
             setUser(user);
             navigation("/rooms")
-        }catch{
+        }catch(err){
             setError("Email ou senha invalidos");
-            throw error;
+            throw err;
         }finally{
             setLoading(false)
         }
