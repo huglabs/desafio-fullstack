@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { AuthLayout } from "../../../components/AuthLayout"
-import { Button } from "../../../components/Button"
-import { Input } from "../../../components/Input"
+import { Button } from "../../../components/ui/Button"
+import { Input } from "../../../components/ui/Input"
 import { Link } from "react-router-dom"
 import { useLogin } from "../../../hooks/useLogin"
 import { Mail, Lock } from 'lucide-react';
