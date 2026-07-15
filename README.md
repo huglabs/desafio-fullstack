@@ -1,101 +1,207 @@
-💬 Chat em Tempo Real — Laravel Reverb + React
+# 💬 Chat em Tempo Real — Laravel Reverb + React
 
-Sistema de chat em tempo real com salas, mensagens e WebSocket via Laravel Reverb.
+Sistema de chat em tempo real desenvolvido como desafio técnico, utilizando **Laravel Reverb** para comunicação via WebSocket, **Laravel Sanctum** para autenticação e **React + TypeScript** no frontend.
 
-🧱 Stack
+---
+
+# 🧱 Tecnologias
+
+## Backend
+
+- Laravel 12
+- Laravel Sanctum
+- Laravel Reverb
+- PostgreSQL
+
+## Frontend
+
+- React
+- TypeScript
+- Vite
+- Tailwind CSS
+- Laravel Echo
+- Pusher JS
+
+## Infraestrutura
+
+- Docker
+- Docker Compose
+
+---
+
+# 📁 Estrutura do Projeto
+
+```text
+desafio-fullstack/
+│
+├── backend/
+│   ├── app/
+│   ├── routes/
+│   ├── database/
+│   └── ...
+│
+├── frontend/
+│   ├── src/
+│   └── ...
+│
+├── docker/
+│   ├── php/
+│   └── node/
+│
+└── docker-compose.yml
+```
+
+---
+
+# 🚀 Como executar
+
+## Pré-requisitos
+
+- Docker
+- Docker Compose
+
+---
+
+## 1. Clone o projeto
+
+```bash
+git clone <url-do-repositorio>
+cd desafio-fullstack
+```
+
+---
+
+## 2. Configure os arquivos .env
+
+### Backend
+
+```bash
+cp backend/.env.example backend/.env
+```
+
+Configure as variáveis do backend (Mesmas do env.example)
+
+### Frontend
+
+```bash
+cp frontend/.env.example frontend/.env
+```
+
+Configure as variáveis:
+
+  São as mesmas do env.example
+
+---
+
+## 3. Suba os containers
+
+```bash
+docker compose up --build
+```
+
+Serão iniciados automaticamente os seguintes serviços:
+
+- Laravel API
+- React
+- PostgreSQL
+- Laravel Reverb
+- Queue Worker
+
+---
+
+## 4. Execute as migrations
+
+```bash
+docker compose exec app php artisan migrate
+```
+
+Caso deseje popular o banco:
+
+```bash
+docker compose exec app php artisan db:seed
+```
+
+---
+
+# Endereços da aplicação
+
+Frontend
+
+```
+http://localhost:5173
+```
+
+Backend
+
+```
+http://localhost:8000
+```
+
+WebSocket (Reverb)
+
+```
+ws://localhost:8080
+```
+
+---
+
+# Principais Endpoints
+
+| Método | Endpoint | Descrição |
+|---------|----------|-----------|
+| POST | `/api/register` | Registro de usuário |
+| POST | `/api/login` | Login |
+| POST | `/api/logout` | Logout |
+| GET | `/api/rooms` | Lista salas |
+| POST | `/api/rooms` | Cria sala |
+| POST | `/api/rooms/{id}/join` | Entrar em uma sala |
+| GET | `/api/rooms/{id}/messages` | Histórico paginado |
+| POST | `/api/rooms/{id}/messages` | Envia mensagem |
+
+A autenticação é realizada através do header:
+
+```http
+Authorization: Bearer {token}
+```
+
+Broadcast:
+
+```
+Canal: room.{roomId}
+
+Evento: message.sent
+```
+
+---
+
+# 📂 Modelagem
+
+<img width="2575" height="1634" alt="infra papai" src="https://github.com/user-attachments/assets/f59b19da-6cd3-427e-a411-06ec1de5dcd5" />
 
 
-Backend: Laravel + Sanctum (auth) + Reverb (WebSocket)
-Frontend: React + TypeScript + Vite + Tailwind + Laravel Echo (pusher-js como client WS)
+# ⚖️ Trade-offs
 
+- Autenticação via Bearer token (Sanctum SPA token), não cookies de sessão. Mais simples de configurar entre domínios/portas diferentes em dev.
+- Paginação do histórico de mensagens: 20 por página, ordenadas das mais recentes para as mais antigas, com um botão "carregar mensagens antigas" no topo do chat (em vez de scroll infinito automático), tentei implementar o scroll infinito mas acabei tendo problemas e voltei atras.
+- Os eventos de broadcast (ShouldBroadcast) são despachados via fila
+---
 
+# Limitações Conhecidas
 
-🚀 Como rodar localmente
+- A autorização dos canais privados ainda permite que qualquer usuário autenticado acesse um canal privado. Em uma evolução do projeto, a autorização deve validar se o usuário pertence à sala antes de permitir a inscrição no canal.
+- Não foram implementados os diferenciais opcionais propostos (Presence Channels, indicador de digitação, mensagens privadas, upload de imagens, mensagens lidas e testes automatizados), pensei em implementar mas acabei passando por alguns problemas e não consegui implementar os mesmo .
 
-Pré-requisitos
+---
 
+# Funcionalidades Implementadas
 
-PHP 8.2+
-Composer
-Node 18+
-SQLite (ou outro banco de sua preferência)
-
-
-1. Backend
-
-bashcd back
-composer install
-cp .env.example .env
-php artisan key:generate
-
-Configure o .env (principais chaves):
-
-envAPP_URL=http://localhost:8000
-
-DB_CONNECTION=sqlite
-# certifique-se de que DB_DATABASE aponta para um arquivo, e não para :memory:
-# (deixe a linha comentada para usar database/database.sqlite por padrão)
-
-BROADCAST_CONNECTION=reverb
-
-REVERB_APP_ID=local
-REVERB_APP_KEY=local-key
-REVERB_APP_SECRET=local-secret
-REVERB_HOST=localhost
-REVERB_PORT=8080
-REVERB_SCHEME=http
-
-Crie o banco e rode as migrations:
-
-bashtouch database/database.sqlite
-php artisan migrate
-
-Suba os 3 processos necessários (em terminais separados):
-
-bashphp artisan serve            # API em http://localhost:8000
-php artisan reverb:start     # WebSocket em ws://localhost:8080
-php artisan queue:work       # processa os eventos de broadcast (se QUEUE_CONNECTION != sync)
-
-2. Frontend
-
-bashcd front
-npm install
-cp .env.example .env
-
-Configure o .env do front:
-
-envVITE_API_URL=http://localhost:8000/api
-VITE_APP_URL=http://localhost:8000
-
-VITE_REVERB_APP_KEY=local-key
-VITE_REVERB_HOST=localhost
-VITE_REVERB_PORT=8080
-
-bashnpm run dev
-
-Acesse http://localhost:5173.
-
-
-📡 Endpoints principais
-
-MétodoRotaDescriçãoPOST/api/registerCria usuárioPOST/api/loginLogin, retorna token SanctumPOST/api/logoutRevoga o token (autenticado)GET/api/roomsLista salasPOST/api/roomsCria salaPOST/api/rooms/{id}/joinEntra em uma salaGET/api/rooms/{id}/messagesHistórico paginado de mensagensPOST/api/rooms/{id}/messagesEnvia mensagem (dispara broadcast)
-
-Autenticação via header Authorization: Bearer {token}.
-
-Broadcast: canal privado room.{roomId}, evento message.sent.
-
-
-⚖️ Trade-offs e decisões
-
-
-Autenticação via Bearer token (Sanctum SPA token), não cookies de sessão. Mais simples de configurar entre domínios/portas diferentes em dev, mas abre mão da proteção extra de cookies httpOnly — para produção, cookies + CSRF seriam mais indicados.
-Paginação do histórico de mensagens: 20 por página, ordenadas das mais recentes para as mais antigas, com um botão "carregar mensagens antigas" no topo do chat (em vez de scroll infinito automático). Optei pela abordagem mais simples e previsível — scroll infinito com preservação exata de posição adiciona complexidade que não parecia justificar o ganho de UX para o escopo do desafio.
-QUEUE_CONNECTION: os eventos de broadcast (ShouldBroadcast) são despachados via fila. Para rodar localmente sem subir um worker, é possível usar QUEUE_CONNECTION=sync no .env, o que processa o broadcast de forma síncrona no mesmo request.
-Não implementei nenhum dos diferenciais opcionais (typing indicator, presence channel, DM, upload de imagem, mensagens lidas, testes automatizados) para focar em entregar o fluxo obrigatório completo e testado.
-
-
-⚠️ Limitações conhecidas
-
-
-A autorização do canal privado de broadcast (routes/channels.php) atualmente libera qualquer usuário autenticado a ouvir qualquer sala, sem checar se ele é de fato membro dela. Em uma próxima iteração, isso seria restrito checando RoomRepository::isMember.
-Não há testes automatizados.
+- Cadastro de usuários
+- Login e Logout
+- Autenticação via Sanctum
+- Criação de salas
+- Listagem de salas
+- Entrada em salas
+- Histórico paginado de mensagens
+- Envio de mensagens
+- Atualização das mensagens em tempo real utilizando Laravel Reverb
+- Comunicação entre múltiplos clientes via WebSocket
