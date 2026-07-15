@@ -4,7 +4,7 @@ Sistema de chat em tempo real desenvolvido como desafio técnico, utilizando **L
 
 ---
 
-# 🧱 Tecnologias
+# Tecnologias
 
 ## Backend
 
@@ -29,26 +29,58 @@ Sistema de chat em tempo real desenvolvido como desafio técnico, utilizando **L
 
 ---
 
-# 📁 Estrutura do Projeto
+# Estrutura do Projeto
 
 ```text
 desafio-fullstack/
 │
 ├── backend/
 │   ├── app/
-│   ├── routes/
+│   │   ├── Events/
+│   │   ├── Http/
+│   │   │   ├── Controllers/
+│   │   │   ├── Requests/
+│   │   │   └── Resources/
+│   │   ├── Models/
+│   │   ├── Providers/
+│   │   └── Services/
+│   │
+│   ├── config/
 │   ├── database/
-│   └── ...
+│   │   └── migrations/
+│   │  
+│   │
+│   ├── routes/
+│   │   ├── api.php
+│   │   ├── channels.php
+│   │   └── web.php
+│   │
+│   └── bootstrap/
 │
 ├── frontend/
+│   ├── public/
 │   ├── src/
-│   └── ...
+│   │   ├── components/
+│   │   ├── configs/
+│   │   ├── hooks/
+│   │   ├── pages/
+│   │   ├── routes/
+│   │   ├── services/
+│   │   ├── types/
+│   │   ├── App.tsx
+│   │   └── main.tsx
+│   │
+│   ├── package.json
+│   └── vite.config.ts
 │
 ├── docker/
-│   ├── php/
-│   └── node/
+│   ├── node/
+│   │   └── Dockerfile
+│   └── php/
+│       └── Dockerfile
 │
-└── docker-compose.yml
+├── docker-compose.yml
+└── README.md
 ```
 
 ---
@@ -174,12 +206,12 @@ Evento: message.sent
 
 ---
 
-# 📂 Modelagem
+# Modelagem
 
 <img width="2575" height="1634" alt="infra papai" src="https://github.com/user-attachments/assets/f59b19da-6cd3-427e-a411-06ec1de5dcd5" />
 
 
-# ⚖️ Trade-offs
+# Trade-offs
 
 - Autenticação via Bearer token (Sanctum SPA token), não cookies de sessão. Mais simples de configurar entre domínios/portas diferentes em dev.
 - Paginação do histórico de mensagens: 20 por página, ordenadas das mais recentes para as mais antigas, com um botão "carregar mensagens antigas" no topo do chat (em vez de scroll infinito automático), tentei implementar o scroll infinito mas acabei tendo problemas e voltei atras.
