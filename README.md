@@ -1,68 +1,233 @@
-# 🚀 Desafio Técnico — Desenvolvedor Full Stack
+# 💬 Chat em Tempo Real — Laravel Reverb + React
 
-Bem-vindo ao desafio técnico para a vaga de **Desenvolvedor Full Stack** da nossa equipe!
-
-Este repositório contém as instruções do desafio que você deverá realizar. Leia tudo com atenção antes de começar.
+Sistema de chat em tempo real desenvolvido como desafio técnico, utilizando **Laravel Reverb** para comunicação via WebSocket, **Laravel Sanctum** para autenticação e **React + TypeScript** no frontend.
 
 ---
 
-## 🎯 Sobre a Vaga
+# Tecnologias
 
-Estamos buscando um desenvolvedor full stack com experiência sólida em **ReactJS** e **Laravel**, capaz de construir aplicações completas com qualidade, clareza de código e boas práticas.
+## Backend
 
----
+- Laravel 12
+- Laravel Sanctum
+- Laravel Reverb
+- PostgreSQL
 
-## 📂 Desafios Disponíveis
+## Frontend
 
-Você deverá escolher **um** dos dois desafios abaixo para realizar:
+- React
+- TypeScript
+- Vite
+- Tailwind CSS
+- Laravel Echo
+- Pusher JS
 
-| # | Desafio | Descrição |
-|---|---------|-----------|
-| 1 | [🔗 Encurtador de URLs com Analytics](./CHALLENGE_URL_SHORTENER.md) | Serviço de encurtamento de URLs com rastreamento de acessos e analytics |
-| 2 | [💬 Chat em Tempo Real com Reverb](./CHALLENGE_REALTIME_CHAT.md) | Sistema de chat em tempo real utilizando WebSocket com Laravel Reverb |
+## Infraestrutura
 
----
-
-## 🛠 Stack Esperada
-
-- **Backend:** Laravel (versão mais recente)
-- **Frontend:** ReactJS
-- **Banco de dados:** MySQL ou PostgreSQL
-- **Autenticação:** Laravel Sanctum
-
----
-
-## 📋 Regras Gerais
-
-- Escolha **apenas um** dos desafios
-- O prazo é de **5 dias corridos** a partir do recebimento deste desafio
-- Faça o fork desse repositório e ao finalizar solicite uma pull request para avaliação
-- Na descrição da sua pull request, inclua instruções claras para rodar localmente
+- Docker
+- Docker Compose
 
 ---
 
-## ✅ O que será avaliado
+# Estrutura do Projeto
 
-- **Qualidade do código** — organização, clareza, nomes significativos
-- **Arquitetura** — separação de responsabilidades, estrutura de pastas
-- **API REST** — consistência, validações, tratamento de erros
-- **Integração** — comunicação entre frontend e backend
-- **UX básica** — a aplicação deve ser funcional e usável
-- **Documentação** — README claro e decisões técnicas explicadas
+```text
+desafio-fullstack/
+│
+├── backend/
+│   ├── app/
+│   │   ├── Events/
+│   │   ├── Http/
+│   │   │   ├── Controllers/
+│   │   │   ├── Requests/
+│   │   │   └── Resources/
+│   │   ├── Models/
+│   │   ├── Providers/
+│   │   └── Services/
+│   │
+│   ├── config/
+│   ├── database/
+│   │   └── migrations/
+│   │  
+│   │
+│   ├── routes/
+│   │   ├── api.php
+│   │   ├── channels.php
+│   │   └── web.php
+│   │
+│   └── bootstrap/
+│
+├── frontend/
+│   ├── public/
+│   ├── src/
+│   │   ├── components/
+│   │   ├── configs/
+│   │   ├── hooks/
+│   │   ├── pages/
+│   │   ├── routes/
+│   │   ├── services/
+│   │   ├── types/
+│   │   ├── App.tsx
+│   │   └── main.tsx
+│   │
+│   ├── package.json
+│   └── vite.config.ts
+│
+├── docker/
+│   ├── node/
+│   │   └── Dockerfile
+│   └── php/
+│       └── Dockerfile
+│
+├── docker-compose.yml
+└── README.md
+```
 
 ---
 
-## 💡 Dicas
+# Como executar
 
-- Não tente fazer tudo — **priorize o que é essencial** e documente o que deixou de fora
-- Código simples e legível vale mais do que código complexo e confuso
-- Explique suas decisões técnicas no README — isso conta muito
-- Diferenciais são bem-vindos, mas não obrigatórios
+## Pré-requisitos
+
+- Docker
+- Docker Compose
 
 ---
 
-## 📬 Entrega
+## 1. Clone o projeto
 
-Ao finalizar, envie o link da pull request aberta para o e-mail ou canal de comunicação indicado pelo recrutador.
+```bash
+git clone <url-do-repositorio>
+cd desafio-fullstack
+```
 
-Boa sorte! 🍀
+---
+
+## 2. Configure os arquivos .env
+
+### Backend
+
+```bash
+cp backend/.env.example backend/.env
+```
+
+Configure as variáveis do backend (Mesmas do env.example)
+
+### Frontend
+
+```bash
+cp frontend/.env.example frontend/.env
+```
+
+Configure as variáveis:
+
+  São as mesmas do env.example
+
+---
+
+## 3. Suba os containers
+
+```bash
+docker compose up --build
+```
+
+Serão iniciados automaticamente os seguintes serviços:
+
+- Laravel API
+- React
+- PostgreSQL
+- Laravel Reverb
+- Queue Worker
+
+---
+
+## 4. Execute as migrations
+
+```bash
+docker compose exec app php artisan migrate
+```
+
+---
+
+# Endereços da aplicação
+
+Frontend
+
+```
+http://localhost:5173
+```
+
+Backend
+
+```
+http://localhost:8000
+```
+
+WebSocket (Reverb)
+
+```
+ws://localhost:8080
+```
+
+---
+
+# Principais Endpoints
+
+| Método | Endpoint | Descrição |
+|---------|----------|-----------|
+| POST | `/api/register` | Registro de usuário |
+| POST | `/api/login` | Login |
+| POST | `/api/logout` | Logout |
+| GET | `/api/rooms` | Lista salas |
+| POST | `/api/rooms` | Cria sala |
+| POST | `/api/rooms/{id}/join` | Entrar em uma sala |
+| GET | `/api/rooms/{id}/messages` | Histórico paginado |
+| POST | `/api/rooms/{id}/messages` | Envia mensagem |
+
+A autenticação é realizada através do header:
+
+```http
+Authorization: Bearer {token}
+```
+
+Broadcast:
+
+```
+Canal: room.{roomId}
+
+Evento: message.sent
+```
+
+---
+
+# Modelagem
+
+<img width="2575" height="1634" alt="infra papai" src="https://github.com/user-attachments/assets/f59b19da-6cd3-427e-a411-06ec1de5dcd5" />
+
+
+# Trade-offs
+
+- Autenticação via Bearer token (Sanctum SPA token), não cookies de sessão. Mais simples de configurar entre domínios/portas diferentes em dev.
+- Paginação do histórico de mensagens: 20 por página, ordenadas das mais recentes para as mais antigas, com um botão "carregar mensagens antigas" no topo do chat (em vez de scroll infinito automático), tentei implementar o scroll infinito mas acabei tendo problemas e voltei atras.
+- Os eventos de broadcast (ShouldBroadcast) são despachados via fila
+---
+
+# Limitações Conhecidas
+
+- A autorização dos canais privados ainda permite que qualquer usuário autenticado acesse um canal privado. Em uma evolução do projeto, a autorização deve validar se o usuário pertence à sala antes de permitir a inscrição no canal.
+- Não foram implementados os diferenciais opcionais propostos (Presence Channels, indicador de digitação, mensagens privadas, upload de imagens, mensagens lidas e testes automatizados), pensei em implementar mas acabei passando por alguns problemas e não consegui implementar os mesmo .
+
+---
+
+# Funcionalidades Implementadas
+
+- Cadastro de usuários
+- Login e Logout
+- Autenticação via Sanctum
+- Criação de salas
+- Listagem de salas
+- Entrada em salas
+- Histórico paginado de mensagens
+- Envio de mensagens
+- Atualização das mensagens em tempo real utilizando Laravel Reverb
+- Comunicação entre múltiplos clientes via WebSocket
