@@ -147,12 +147,6 @@ Serão iniciados automaticamente os seguintes serviços:
 docker compose exec app php artisan migrate
 ```
 
-Caso deseje popular o banco:
-
-```bash
-docker compose exec app php artisan db:seed
-```
-
 ---
 
 # Endereços da aplicação
