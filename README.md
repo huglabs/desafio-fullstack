@@ -85,8 +85,6 @@ desafio-fullstack/
 
 ---
 
-# Como executar
-
 ## Pré-requisitos
 
 - Docker
@@ -103,7 +101,7 @@ cd desafio-fullstack
 
 ---
 
-## 2. Configure os arquivos .env
+## 2. Configure os arquivos `.env`
 
 ### Backend
 
@@ -111,7 +109,7 @@ cd desafio-fullstack
 cp backend/.env.example backend/.env
 ```
 
-Configure as variáveis do backend (Mesmas do env.example)
+Utilize as mesmas configurações presentes no `.env.example`.
 
 ### Frontend
 
@@ -119,18 +117,25 @@ Configure as variáveis do backend (Mesmas do env.example)
 cp frontend/.env.example frontend/.env
 ```
 
-Configure as variáveis:
-
-  São as mesmas do env.example
+Utilize as mesmas configurações presentes no `.env.example`.
 
 ---
 
-## 3. Suba os containers
+## 3. Instale as dependências do Laravel
+
+Como o projeto utiliza Docker, execute o Composer através do container:
+
+```bash
+docker compose run --rm app composer install
+```
+
+## 4. Suba os containers
 
 ```bash
 docker compose up --build
 ```
 
+---
 Serão iniciados automaticamente os seguintes serviços:
 
 - Laravel API
@@ -146,7 +151,6 @@ Serão iniciados automaticamente os seguintes serviços:
 ```bash
 docker compose exec app php artisan migrate
 ```
-
 ---
 
 # Endereços da aplicação
