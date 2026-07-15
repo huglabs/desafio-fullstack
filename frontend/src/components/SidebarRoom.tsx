@@ -45,7 +45,7 @@ export function RoomSidebar({
                 `}
             >
                 <div>
-                    <div className="h-16 px-4 flex items-center justify-between border-b border-border-input">
+                    <div className="h-16 px-4 flex items-center justify-between border-border-input">
                         <button
                             onClick={() => setIsOpen(false)}
                             className="md:hidden text-text-secondary hover:text-text-primary"
@@ -77,7 +77,7 @@ export function RoomSidebar({
                     </nav>
                 </div>
 
-                <footer className="border-t border-border-input p-4 flex justify-between items-center">
+                <footer className="border-t border-border-input p-5 flex justify-between items-center">
                     <div>
                         <p className="text-sm font-semibold text-text-primary">
                             {user?.name}

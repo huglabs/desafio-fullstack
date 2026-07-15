@@ -10,12 +10,19 @@ import { CreateRoomModal } from "../../components/ModalCreateRoom";
 import { useAuth } from "../../hooks/useAuth";
 import { useLogout } from "../../hooks/useLogout";
 
+const ACTIVE_ROOM = "activeRoomId";
+
+function getStoredRoomId(): number | null {
+    const saved = localStorage.getItem(ACTIVE_ROOM);
+    return saved ? Number(saved) : null;
+}
+
 export function ChatPage() {
     const { user } = useAuth();
     const { logoutUser } = useLogout();
     const { rooms, joinRoom, createRoom} = useRooms();
     const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
-    const [activeRoomId, setActiveRoomId] = useState<number | null>(null);
+    const [activeRoomId, setActiveRoomId] = useState<number | null>(getStoredRoomId);
     const { messages, sendMessage, hasMore, loadingMore, loadMoreMessages } = useMessages(activeRoomId);
 
     const activeRoom = rooms.find((room) => room.id === activeRoomId);
@@ -23,11 +30,18 @@ export function ChatPage() {
     async function handleSelectRoom(roomId: number) {
         await joinRoom(roomId);
         setActiveRoomId(roomId);
+        localStorage.setItem(ACTIVE_ROOM, String(roomId));
     }
     useEffect(() => {
+        if (rooms.length === 0) return;
+
+        if (activeRoomId !== null && rooms.some((r) => r.id === activeRoomId)) {
+            return;
+        }
+        
         if (rooms.length > 0 && activeRoomId === null) {
             handleSelectRoom(rooms[0].id);
-        }
+        }   
     }, [rooms, activeRoomId]);
 
     async function handleSendMessage(body: string) {
@@ -36,7 +50,7 @@ export function ChatPage() {
 
     async function handleCreateRoom(name: string, description: string) {
         const newRoom = await createRoom({ name, description });
-        setActiveRoomId(newRoom.id); 
+        await handleSelectRoom(newRoom.id);
     }
 
     return (

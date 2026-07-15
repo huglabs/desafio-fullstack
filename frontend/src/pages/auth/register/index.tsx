@@ -26,7 +26,7 @@ export function RegisterPage() {
 
     return (
         <AuthLayout 
-            title="Relay" 
+            title="Chat" 
             footer={
                 <p className="text-text-secondary">
                     Já tem conta?{" "}
@@ -36,11 +36,6 @@ export function RegisterPage() {
                 </p>
             }>
             
-            <div className="flex flex-col items-center -mt-4 mb-6">
-                <p className="text-center text-sm text-text-secondary">
-                    Comunicação em tempo real
-                </p>
-            </div>
 
             <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
                 <Input 

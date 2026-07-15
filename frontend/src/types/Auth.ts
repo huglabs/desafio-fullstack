@@ -1,4 +1,5 @@
 import type { User } from './User';
+import type { ReactNode } from 'react';
 
 export interface AuthResponse {
     user: User;
@@ -21,4 +22,10 @@ export interface AuthContextData {
     user: User | null;
     isAuthenticated: boolean;
     setUser: (user: User | null) => void;
+}
+
+export interface AuthLayoutProps {
+  title: string;
+  children: ReactNode;
+  footer?: ReactNode;
 }

@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import type { Message, MessagesListProps } from "../types/Message";
+import type { MessagesListProps } from "../types/Message";
 
 export function MessagesList({ messages, currentUserId, hasMore, loadingMore, onLoadMore }: MessagesListProps) {
     const bottomRef = useRef<HTMLDivElement>(null);
