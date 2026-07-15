@@ -1,0 +1,81 @@
+services:
+  app:
+    build:
+      context: ./docker/php
+    container_name: chat_app
+    volumes:
+      - ./backend:/var/www
+    ports:
+      - "8000:8000"
+    working_dir: /var/www
+    command: php artisan serve --host=0.0.0.0 --port=8000
+    depends_on:
+      - postgres
+    networks:
+      - chat_network
+
+  reverb:
+    build:
+      context: ./docker/php
+    container_name: chat_reverb
+    volumes:
+      - ./backend:/var/www
+    ports:
+      - "8080:8080"
+    working_dir: /var/www
+    command: php artisan reverb:start --host=0.0.0.0 --port=8080
+    depends_on:
+      - postgres
+    networks:
+      - chat_network
+
+  queue:
+    build:
+      context: ./docker/php
+    container_name: chat_queue
+    working_dir: /var/www
+    volumes:
+      - ./backend:/var/www
+    command: php artisan queue:work
+    depends_on:
+      - postgres
+    networks:
+      - chat_network
+
+  postgres:
+    image: postgres:16-alpine
+    container_name: chat_postgres
+    environment:
+      POSTGRES_DB: chat
+      POSTGRES_USER: chat_user
+      POSTGRES_PASSWORD: chat_pass
+    ports:
+      - "5432:5432"
+    volumes:
+      - chat_pgdata:/var/lib/postgresql/data
+    networks:
+      - chat_network
+      
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: ../docker/node/Dockerfile
+    container_name: chat_frontend
+    working_dir: /app
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    ports:
+      - "5173:5173"
+    command: npm run dev -- --host 0.0.0.0
+    depends_on:
+      - app
+    networks:
+      - chat_network
+
+networks:
+  chat_network:
+    driver: bridge
+
+volumes:
+  chat_pgdata:
