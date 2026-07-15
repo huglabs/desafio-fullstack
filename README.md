@@ -129,6 +129,12 @@ Como o projeto utiliza Docker, execute o Composer através do container:
 docker compose run --rm app composer install
 ```
 
+## 4. Suba os containers
+
+```bash
+docker compose up --build
+```
+
 ---
 Serão iniciados automaticamente os seguintes serviços:
 
@@ -145,7 +151,6 @@ Serão iniciados automaticamente os seguintes serviços:
 ```bash
 docker compose exec app php artisan migrate
 ```
-
 ---
 
 # Endereços da aplicação
