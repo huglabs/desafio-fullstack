@@ -26,7 +26,7 @@ export interface RoomSidebarProps {
     onLogout: () => void;
 }
 
-interface CreateRoomModalProps {
+export interface CreateRoomModalProps {
     onClose: () => void;
     onCreate: (name: string, description: string) => Promise<void>;
 }

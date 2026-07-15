@@ -67,18 +67,21 @@ export function useMessages(roomId: number | null) {
     useEffect(() => {
         if (!roomId) return;
 
-        const channel = echo.private(`room.${roomId}`)
-            .listen('.message.sent', (data: { message: Message }) => {
-                setMessages((prev) => {
-                    if (prev.some((m) => m.id === data.message.id)) {
-                        return prev;
-                    }
-                    return [...prev, data.message];
-                });
+        const channel = echo.private(`room.${roomId}`);
+
+        channel.listen(".message.sent", (data: { message: Message }) => {
+            setMessages((prev) => {
+                if (prev.some((m) => m.id === data.message.id)) {
+                    return prev;
+                }
+
+                return [...prev, data.message];
             });
+        });
 
         return () => {
-            echo.leave(`room.${roomId}`);
+            channel.stopListening(".message.sent");
+            echo.leaveChannel(`private-room.${roomId}`);
         };
     }, [roomId]);
 
