@@ -85,7 +85,7 @@ desafio-fullstack/
 
 ---
 
-# 🚀 Como executar
+# Como executar
 
 ## Pré-requisitos
 
