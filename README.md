@@ -1,68 +1,72 @@
-# 🚀 Desafio Técnico — Desenvolvedor Full Stack
+# Encurtador de URLs
 
-Bem-vindo ao desafio técnico para a vaga de **Desenvolvedor Full Stack** da nossa equipe!
+Serviço de encurtamento de URLs com analytics. Esta fase entrega a estrutura base do projeto e autenticação completa (registro, login, logout).
 
-Este repositório contém as instruções do desafio que você deverá realizar. Leia tudo com atenção antes de começar.
+## Stack
 
----
+- **Backend:** Laravel 12, Eloquent ORM, Sanctum
+- **Frontend:** React, TypeScript, Vite, shadcn/ui, TanStack Query, Zustand, React Hook Form, Zod, Tailwind
+- **Banco:** PostgreSQL 16
+- **Infra:** Docker Compose
 
-## 🎯 Sobre a Vaga
+## Pré-requisitos
 
-Estamos buscando um desenvolvedor full stack com experiência sólida em **ReactJS** e **Laravel**, capaz de construir aplicações completas com qualidade, clareza de código e boas práticas.
+- [Docker](https://www.docker.com/) e Docker Compose
 
----
+## Como rodar
 
-## 📂 Desafios Disponíveis
+```bash
+docker compose up --build
+```
 
-Você deverá escolher **um** dos dois desafios abaixo para realizar:
+| Serviço  | URL                        |
+| -------- | -------------------------- |
+| Frontend | http://localhost:5173      |
+| API      | http://localhost:8000/api  |
 
-| # | Desafio | Descrição |
-|---|---------|-----------|
-| 1 | [🔗 Encurtador de URLs com Analytics](./CHALLENGE_URL_SHORTENER.md) | Serviço de encurtamento de URLs com rastreamento de acessos e analytics |
-| 2 | [💬 Chat em Tempo Real com Reverb](./CHALLENGE_REALTIME_CHAT.md) | Sistema de chat em tempo real utilizando WebSocket com Laravel Reverb |
+Na primeira execução, migrations e dependências são instaladas automaticamente.
 
----
+## Endpoints de auth
 
-## 🛠 Stack Esperada
+| Método | Rota             | Body                                              | Auth  |
+| ------ | ---------------- | ------------------------------------------------- | ----- |
+| POST   | `/api/register`  | `name`, `email`, `password`, `password_confirmation` | Não   |
+| POST   | `/api/login`     | `email`, `password`                               | Não   |
+| POST   | `/api/logout`    | —                                                 | Bearer |
+| GET    | `/api/me`        | —                                                 | Bearer |
 
-- **Backend:** Laravel (versão mais recente)
-- **Frontend:** ReactJS
-- **Banco de dados:** MySQL ou PostgreSQL
-- **Autenticação:** Laravel Sanctum
+Resposta de login/registro:
 
----
+```json
+{
+  "user": { "id": 1, "name": "...", "email": "..." },
+  "token": "..."
+}
+```
 
-## 📋 Regras Gerais
+## Estrutura
 
-- Escolha **apenas um** dos desafios
-- O prazo é de **5 dias corridos** a partir do recebimento deste desafio
-- Faça o fork desse repositório e ao finalizar solicite uma pull request para avaliação
-- Na descrição da sua pull request, inclua instruções claras para rodar localmente
+```
+backend/                    # API Laravel (MVC + Eloquent)
+frontend/src/
+  features/
+    auth/                   # pages, stores, types, hooks, services
+    dashboard/              # pages
+  shared/                   # componentes UI e lib compartilhada
+docker-compose.yml
+```
 
----
+Rotas de URLs e analytics existem como stub (501) para a próxima fase.
 
-## ✅ O que será avaliado
+## Próximos passos
 
-- **Qualidade do código** — organização, clareza, nomes significativos
-- **Arquitetura** — separação de responsabilidades, estrutura de pastas
-- **API REST** — consistência, validações, tratamento de erros
-- **Integração** — comunicação entre frontend e backend
-- **UX básica** — a aplicação deve ser funcional e usável
-- **Documentação** — README claro e decisões técnicas explicadas
+- CRUD de URLs com slug automático
+- Redirecionamento público `GET /{slug}`
+- Tracking de acessos (IP, User-Agent)
+- Dashboard e gráfico de analytics
 
----
+## Trade-offs
 
-## 💡 Dicas
-
-- Não tente fazer tudo — **priorize o que é essencial** e documente o que deixou de fora
-- Código simples e legível vale mais do que código complexo e confuso
-- Explique suas decisões técnicas no README — isso conta muito
-- Diferenciais são bem-vindos, mas não obrigatórios
-
----
-
-## 📬 Entrega
-
-Ao finalizar, envie o link da pull request aberta para o e-mail ou canal de comunicação indicado pelo recrutador.
-
-Boa sorte! 🍀
+- MVC direto nos controllers, sem camada Service/Repository
+- Auth no frontend via Zustand + persist; React Query apenas para HTTP
+- Token Bearer (Sanctum), sem cookies de sessão SPA
