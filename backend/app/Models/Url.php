@@ -12,7 +12,21 @@ class Url extends Model
         'user_id',
         'original_url',
         'slug',
+        'expires_at',
+        'password',
     ];
+
+    protected $hidden = [
+        'password',
+    ];
+
+    protected function casts(): array
+    {
+        return [
+            'expires_at' => 'datetime',
+            'password' => 'hashed',
+        ];
+    }
 
     public function user(): BelongsTo
     {

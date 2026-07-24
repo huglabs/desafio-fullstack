@@ -16,6 +16,7 @@ import {
   FormMessage,
 } from '@/shared/components/ui/form'
 import { Input } from '@/shared/components/ui/input'
+import { PasswordInput } from '@/shared/components/ui/password-input'
 import { parseApiError, type ApiFieldErrors } from '@/shared/lib/apiError'
 
 export function LoginForm() {
@@ -82,8 +83,7 @@ export function LoginForm() {
             <FormItem>
               <FormLabel>Senha</FormLabel>
               <FormControl>
-                <Input
-                  type="password"
+                <PasswordInput
                   placeholder="••••••••"
                   autoComplete="current-password"
                   {...field}

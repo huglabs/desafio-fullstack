@@ -13,6 +13,8 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->text('original_url');
             $table->string('slug')->unique();
+            $table->timestamp('expires_at')->nullable();
+            $table->string('password')->nullable();
             $table->timestamps();
         });
     }
