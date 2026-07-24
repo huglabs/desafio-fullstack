@@ -5,6 +5,10 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\RoomController;
 use App\Http\Controllers\MessageController;
+use Illuminate\Support\Facades\Broadcast;
+
+// Permite que o frontend valide o acesso aos canais privados/presence usando o token do Sanctum
+Broadcast::routes(['middleware' => ['auth:sanctum']]);
 
 // Rotas Públicas
 Route::post('/register', [AuthController::class, 'register']);
