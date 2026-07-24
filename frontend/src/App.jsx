@@ -2,13 +2,14 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import { useContext } from 'react';
 import { AuthContext } from './contexts/AuthContext';
 import Auth from './pages/Auth';
+import Rooms from './pages/Rooms';
+import Chat from './pages/Chat';
 import ProtectedRoute from './components/ProtectedRoute';
 
-// Placeholder temporário para a tela de Salas que vamos criar a seguir
-const RoomsPlaceholder = () => (
+// Placeholder temporário para a tela de Chat que construiremos em seguida
+const ChatPlaceholder = () => (
     <div style={{ padding: '20px', textAlign: 'center' }}>
-        <h2>Lista de Salas</h2>
-        <p>Você está logado! A tela de salas entrará aqui em breve.</p>
+        <h2>A Sala de Chat entrará aqui</h2>
     </div>
 );
 
@@ -36,7 +37,17 @@ export default function App() {
                     path="/rooms" 
                     element={
                         <ProtectedRoute>
-                            <RoomsPlaceholder />
+                            <Rooms />
+                        </ProtectedRoute>
+                    } 
+                />
+
+                {/* Nova rota parametrizada para o chat */}
+                <Route 
+                    path="/chat/:roomId" 
+                    element={
+                        <ProtectedRoute>
+                            <Chat />
                         </ProtectedRoute>
                     } 
                 />
