@@ -130,7 +130,7 @@ cd frontend && npm run test
 - **Autenticação Bearer (Sanctum):** token no header, sem sessão/cookie no SPA — encaixa bem no monorepo com API e frontend separados e simplifica o deploy.
 - **Cache Redis com version key na listagem:** dashboard, listagem paginada e lookup por slug (TTL 5 min). Create/delete incrementa a versão do usuário e invalida todas as páginas sem `SCAN` no Redis; botão Atualizar usa `?refresh=1`.
 - **Frontend por features + shared:** domínios `auth`, `home` e `urls`, com UI reutilizável em `shared`. Auth e token no Zustand (persist); leitura/escrita de API no TanStack Query, com invalidação após mutations.
-- **Rotas separadas por responsabilidade:** JSON REST em `routes/api.php`; redirect público, senha e página de expirado em `routes/web.php` (Blade), onde HTML faz mais sentido que JSON.
+- **Deploy:** : Optei por fazer o deploy no Railway, configurando os serviços de banco de dados e cache, além do back e front manualmente. optei por essa ferramenta pelo seu painel de configuração intuitivo, e optei por fazer um deploy para ter um diferencial.
 
 ## Estrutura do repositório
 
