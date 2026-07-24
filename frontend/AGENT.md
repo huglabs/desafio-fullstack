@@ -65,7 +65,7 @@ Testes ficam em `src/test/feature/<feature>/`, espelhando a ownership da feature
 
 - **Fonte de verdade de cores:** [`src/index.css`](src/index.css) (`:root` e `.dark`, oklch verde ~145–155).
 - **Tokens TS:** [`src/shared/design-token/`](src/shared/design-token/) — usar em charts/docs; preferir classes Tailwind (`bg-primary`, `text-muted-foreground`) no JSX.
-- **Fontes:** DM Sans (corpo), Syne (display / títulos de marca).
+- **Fontes:** Plus Jakarta Sans (corpo e títulos).
 - **Radius:** `--radius: 0.875rem`; cards e inputs com `rounded-xl`.
 - **Superfícies autenticadas:** `auth-shell` + `auth-grid` para fundo; cards com `border-border/70 bg-card/80 backdrop-blur-xl`.
 - **Modo claro é padrão;** respeitar `.dark` via `themeStore`.
