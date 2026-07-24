@@ -18,8 +18,8 @@ export function UrlPagination({ meta, onPageChange, isLoading }: UrlPaginationPr
   const to = meta.to ?? 0
 
   return (
-    <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-      <p className="text-muted-foreground text-sm">
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+      <p className="text-muted-foreground text-center text-sm sm:text-left">
         Mostrando {from}–{to} de {meta.total}
       </p>
       <div className="flex items-center gap-2">
@@ -27,19 +27,21 @@ export function UrlPagination({ meta, onPageChange, isLoading }: UrlPaginationPr
           type="button"
           variant="outline"
           size="sm"
+          className="flex-1 sm:flex-none"
           disabled={isLoading || meta.current_page <= 1}
           onClick={() => onPageChange(meta.current_page - 1)}
         >
           <ChevronLeft />
           Anterior
         </Button>
-        <span className="min-w-24 text-center text-sm font-medium">
-          Página {meta.current_page} de {meta.last_page}
+        <span className="min-w-20 text-center text-sm font-medium">
+          {meta.current_page}/{meta.last_page}
         </span>
         <Button
           type="button"
           variant="outline"
           size="sm"
+          className="flex-1 sm:flex-none"
           disabled={isLoading || meta.current_page >= meta.last_page}
           onClick={() => onPageChange(meta.current_page + 1)}
         >

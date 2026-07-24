@@ -171,34 +171,90 @@ export function UrlDataTable({ urls, isLoading, onDelete }: UrlDataTableProps) {
 
   return (
     <TooltipProvider>
-      <div className="border-border/70 bg-card/80 rounded-xl border backdrop-blur-xl">
-        <Table>
-          <TableHeader>
-            {table.getHeaderGroups().map((headerGroup) => (
-              <TableRow key={headerGroup.id}>
-                {headerGroup.headers.map((header) => (
-                  <TableHead key={header.id}>
-                    {header.isPlaceholder
-                      ? null
-                      : flexRender(header.column.columnDef.header, header.getContext())}
-                  </TableHead>
-                ))}
-              </TableRow>
-            ))}
-          </TableHeader>
-          <TableBody>
-            {table.getRowModel().rows.map((row) => (
-              <TableRow key={row.id}>
-                {row.getVisibleCells().map((cell) => (
-                  <TableCell key={cell.id}>
-                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                  </TableCell>
-                ))}
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
+      <div className="space-y-3 md:hidden">
+        {urls.map((url) => (
+          <UrlMobileCard key={url.id} url={url} onDelete={onDelete} />
+        ))}
+      </div>
+
+      <div className="border-border/70 bg-card/80 hidden rounded-xl border backdrop-blur-xl md:block">
+        <div className="overflow-x-auto">
+          <Table>
+            <TableHeader>
+              {table.getHeaderGroups().map((headerGroup) => (
+                <TableRow key={headerGroup.id}>
+                  {headerGroup.headers.map((header) => (
+                    <TableHead key={header.id}>
+                      {header.isPlaceholder
+                        ? null
+                        : flexRender(header.column.columnDef.header, header.getContext())}
+                    </TableHead>
+                  ))}
+                </TableRow>
+              ))}
+            </TableHeader>
+            <TableBody>
+              {table.getRowModel().rows.map((row) => (
+                <TableRow key={row.id}>
+                  {row.getVisibleCells().map((cell) => (
+                    <TableCell key={cell.id}>
+                      {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                    </TableCell>
+                  ))}
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </div>
       </div>
     </TooltipProvider>
+  )
+}
+
+function UrlMobileCard({ url, onDelete }: { url: Url; onDelete: (url: Url) => void }) {
+  return (
+    <div className="border-border/70 bg-card/80 space-y-3 rounded-xl border p-4 backdrop-blur-xl">
+      <div className="space-y-1">
+        <p className="text-muted-foreground text-xs font-medium tracking-wide uppercase">URL original</p>
+        <p className="text-sm break-all">{url.original_url}</p>
+      </div>
+
+      <div className="flex items-center justify-between gap-2">
+        <div className="flex items-center gap-2">
+          <code className="bg-muted/80 rounded-lg px-2 py-1 text-xs">{url.slug}</code>
+          {url.has_password && <Lock className="text-muted-foreground size-3.5" />}
+        </div>
+        <span className="text-muted-foreground text-xs">{formatDate(url.created_at)}</span>
+      </div>
+
+      <div className="flex flex-wrap gap-2">
+        <Button
+          type="button"
+          variant="outline"
+          size="sm"
+          className="flex-1"
+          onClick={() => copyToClipboard(url.short_url)}
+        >
+          <Copy />
+          Copiar
+        </Button>
+        <Button asChild variant="outline" size="sm" className="flex-1">
+          <Link to={`/urls/${url.id}`}>
+            <Eye />
+            Analytics
+          </Link>
+        </Button>
+        <Button
+          type="button"
+          variant="outline"
+          size="sm"
+          className="text-destructive hover:text-destructive flex-1"
+          onClick={() => onDelete(url)}
+        >
+          <Trash2 />
+          Excluir
+        </Button>
+      </div>
+    </div>
   )
 }

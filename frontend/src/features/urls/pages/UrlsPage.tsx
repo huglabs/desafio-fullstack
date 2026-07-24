@@ -28,7 +28,7 @@ export function UrlsPage() {
         title="URLs"
         description="Crie, liste e gerencie seus links curtos."
         actions={
-          <Button onClick={() => setCreateOpen(true)}>
+          <Button onClick={() => setCreateOpen(true)} className="w-full sm:w-auto">
             <Plus />
             Nova URL
           </Button>

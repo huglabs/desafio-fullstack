@@ -22,18 +22,18 @@ export function UrlDetailsHeader({ url, isRefreshing, onRefresh, onCopy }: UrlDe
             Voltar
           </Link>
         </Button>
-        <div>
-          <h1 className="font-display text-3xl font-bold tracking-tight">Analytics</h1>
-          <p className="text-muted-foreground mt-1 break-all">{url.original_url}</p>
+        <div className="min-w-0">
+          <h1 className="font-display text-2xl font-bold tracking-tight sm:text-3xl">Analytics</h1>
+          <p className="text-muted-foreground mt-1 text-sm break-all sm:text-base">{url.original_url}</p>
         </div>
       </div>
-      <div className="flex gap-2">
+      <div className="flex w-full flex-wrap gap-2 sm:w-auto">
         <RefreshButton isRefreshing={isRefreshing} onRefresh={onRefresh} />
-        <Button variant="outline" onClick={onCopy}>
+        <Button variant="outline" onClick={onCopy} className="flex-1 sm:flex-none">
           <Copy />
           Copiar
         </Button>
-        <Button asChild variant="outline">
+        <Button asChild variant="outline" className="flex-1 sm:flex-none">
           <a href={url.short_url} target="_blank" rel="noreferrer">
             <ExternalLink />
             Abrir curta
