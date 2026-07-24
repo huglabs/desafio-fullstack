@@ -8,7 +8,17 @@ Serviço de encurtamento de URLs com autenticação, analytics e redirect públi
 | -------- | ------------------------------------------------------------------------------------------------ |
 | Backend  | Laravel 12, Sanctum, Eloquent, PostgreSQL 16, Redis 7, Predis                                    |
 | Frontend | React 19, TypeScript, Vite, Tailwind 4, shadcn/ui, TanStack Query, Zustand, React Hook Form, Zod |
-| Infra    | Docker Compose                                                                                   |
+| Infra    | Docker Compose, Railway                                                                          |
+
+## Deploy (Railway)
+
+Aplicação disponível em produção:
+
+| Serviço  | URL                                                              |
+| -------- | ---------------------------------------------------------------- |
+| Frontend | https://desafio-fullstack-production.up.railway.app              |
+| API      | https://sincere-reflection-production-fea3.up.railway.app/api    |
+| Redirect | https://sincere-reflection-production-fea3.up.railway.app/{slug} |
 
 ## Como rodar
 
@@ -116,7 +126,7 @@ cd frontend && npm run test
 
 ## Decisões arquiteturais
 
-- **Backend em camadas (Controller → Service → Repository):** controllers finos, regras de negócio nos services e acesso a dados nos repositories. Validação centralizada em Form Requests; 
+- **Backend em camadas (Controller → Service → Repository):** controllers finos, regras de negócio nos services e acesso a dados nos repositories. Validação centralizada em Form Requests;
 - **Autenticação Bearer (Sanctum):** token no header, sem sessão/cookie no SPA — encaixa bem no monorepo com API e frontend separados e simplifica o deploy.
 - **Cache Redis com version key na listagem:** dashboard, listagem paginada e lookup por slug (TTL 5 min). Create/delete incrementa a versão do usuário e invalida todas as páginas sem `SCAN` no Redis; botão Atualizar usa `?refresh=1`.
 - **Frontend por features + shared:** domínios `auth`, `home` e `urls`, com UI reutilizável em `shared`. Auth e token no Zustand (persist); leitura/escrita de API no TanStack Query, com invalidação após mutations.
