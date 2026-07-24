@@ -33,12 +33,22 @@ export default function Chat() {
             // Quem já está na sala
             .here((users) => setOnlineUsers(users))
             // Alguém entrou
-            .joining((user) => setOnlineUsers(prev => [...prev, user]))
+            .joining((joinedUser) => {
+                setOnlineUsers(prev => {
+                    // Previne duplicação de usuários na lista
+                    if (prev.some(u => u.id === joinedUser.id)) return prev;
+                    return [...prev, joinedUser];
+                });
+            })
             // Alguém saiu
-            .leaving((user) => setOnlineUsers(prev => prev.filter(u => u.id !== user.id)))
+            .leaving((leftUser) => setOnlineUsers(prev => prev.filter(u => u.id !== leftUser.id)))
             // Escuta novas mensagens
             .listen('MessageSent', (event) => {
-                setMessages(prev => [...prev, event]);
+                setMessages(prev => {
+                    // Previne duplicação de mensagens checando o ID que veio do banco
+                    if (prev.some(msg => msg.id === event.id)) return prev;
+                    return [...prev, event];
+                });
             })
             // Escuta o evento de "digitando..." (Whisper)
             .listenForWhisper('typing', (event) => {
@@ -55,7 +65,7 @@ export default function Chat() {
 
         // Cleanup: sai do canal quando o componente for desmontado (usuário sair da tela)
         return () => {
-            channel.leave();
+            echo.leave(`room.${roomId}`);
         };
     }, [roomId, navigate]);
 

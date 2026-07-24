@@ -6,7 +6,11 @@ import api from '../services/api';
 export default function Rooms() {
     const { user, logout } = useContext(AuthContext);
     const [rooms, setRooms] = useState([]);
+
+    // Estados do formulário de nova sala
     const [newRoomName, setNewRoomName] = useState('');
+    const [newRoomDescription, setNewRoomDescription] = useState('');
+
     const [error, setError] = useState(null);
     const navigate = useNavigate();
 
@@ -29,10 +33,15 @@ export default function Rooms() {
         if (!newRoomName.trim()) return;
 
         try {
-            const response = await api.post('/rooms', { name: newRoomName });
+            const response = await api.post('/rooms', {
+                name: newRoomName,
+                description: newRoomDescription
+            });
             // Adiciona a nova sala no topo da lista
             setRooms([response.data, ...rooms]);
+            // Limpando os campos após o sucesso
             setNewRoomName('');
+            setNewRoomDescription('');
             setError(null);
         } catch (err) {
             setError(err.response?.data?.message || 'Erro ao criar sala.');
@@ -65,16 +74,26 @@ export default function Rooms() {
             <div style={{ background: '#f5f5f5', padding: '20px', borderRadius: '8px', marginBottom: '20px' }}>
                 <h3>Criar Nova Sala</h3>
                 {error && <div style={{ color: 'red', marginBottom: '10px' }}>{error}</div>}
-                <form onSubmit={handleCreateRoom} style={{ display: 'flex', gap: '10px' }}>
+                
+                <form onSubmit={handleCreateRoom} style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
                     <input
                         type="text"
                         placeholder="Nome da sala..."
                         value={newRoomName}
                         onChange={(e) => setNewRoomName(e.target.value)}
-                        style={{ flex: 1, padding: '8px' }}
+                        style={{ padding: '8px', borderRadius: '4px', border: '1px solid #ccc' }}
                         required
                     />
-                    <button type="submit" style={{ padding: '8px 15px', cursor: 'pointer' }}>Criar</button>
+                    <input
+                        type="text"
+                        placeholder="Descrição da sala (opcional)..."
+                        value={newRoomDescription}
+                        onChange={(e) => setNewRoomDescription(e.target.value)}
+                        style={{ padding: '8px', borderRadius: '4px', border: '1px solid #ccc' }}
+                    />
+                    <button type="submit" style={{ padding: '8px 15px', cursor: 'pointer', background: '#4CAF50', color: 'white', border: 'none', borderRadius: '4px', alignSelf: 'flex-start' }}>
+                        Criar
+                    </button>
                 </form>
             </div>
 
@@ -87,10 +106,16 @@ export default function Rooms() {
                         <div 
                             key={room.id} 
                             onClick={() => enterRoom(room.id)}
-                            style={{ padding: '15px', border: '1px solid #ccc', borderRadius: '4px', cursor: 'pointer', display: 'flex', justifyContent: 'space-between' }}
+                            style={{ padding: '15px', border: '1px solid #ccc', borderRadius: '4px', cursor: 'pointer', display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: 'white' }}
                         >
-                            <strong>{room.name}</strong>
-                            <span style={{ color: '#0066cc' }}>Entrar →</span>
+                            <div>
+                                <strong style={{ display: 'block', fontSize: '1.1em' }}>{room.name}</strong>
+                                {/* Renderiza a descrição apenas se ela existir */}
+                                {room.description && (
+                                    <span style={{ color: '#666', fontSize: '0.9em' }}>{room.description}</span>
+                                )}
+                            </div>
+                            <span style={{ color: '#0066cc', fontWeight: 'bold' }}>Entrar →</span>
                         </div>
                     ))}
                 </div>
