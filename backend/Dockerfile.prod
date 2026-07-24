@@ -1,0 +1,26 @@
+FROM php:8.3-cli-alpine
+
+RUN apk add --no-cache \
+    postgresql-dev \
+    zip \
+    unzip \
+    libzip-dev \
+    && docker-php-ext-install pdo pdo_pgsql zip \
+    && rm -rf /var/cache/apk/*
+
+COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
+
+WORKDIR /var/www/html
+
+COPY composer.json composer.lock ./
+RUN composer install --no-interaction --prefer-dist --no-dev --optimize-autoloader --no-scripts
+
+COPY . .
+
+RUN composer dump-autoload --optimize \
+    && chmod +x docker-entrypoint.prod.sh \
+    && mkdir -p storage/framework/cache storage/framework/sessions storage/framework/views storage/logs bootstrap/cache
+
+EXPOSE 8000
+
+ENTRYPOINT ["sh", "./docker-entrypoint.prod.sh"]
