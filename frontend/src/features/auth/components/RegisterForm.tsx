@@ -99,11 +99,7 @@ export function RegisterForm() {
             <FormItem>
               <FormLabel>Senha</FormLabel>
               <FormControl>
-                <PasswordInput
-                  placeholder="••••••••"
-                  autoComplete="new-password"
-                  {...field}
-                />
+                <PasswordInput placeholder="••••••••" autoComplete="new-password" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -117,11 +113,7 @@ export function RegisterForm() {
             <FormItem>
               <FormLabel>Confirmar senha</FormLabel>
               <FormControl>
-                <PasswordInput
-                  placeholder="••••••••"
-                  autoComplete="new-password"
-                  {...field}
-                />
+                <PasswordInput placeholder="••••••••" autoComplete="new-password" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>

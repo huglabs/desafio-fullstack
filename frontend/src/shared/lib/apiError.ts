@@ -8,10 +8,7 @@ export interface ParsedApiError {
   status?: number
 }
 
-export function parseApiError(
-  error: unknown,
-  fallback = 'Erro inesperado',
-): ParsedApiError {
+export function parseApiError(error: unknown, fallback = 'Erro inesperado'): ParsedApiError {
   if (!isAxiosError(error)) {
     return { message: fallback, fieldErrors: {} }
   }

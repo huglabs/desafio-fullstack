@@ -30,13 +30,7 @@ interface ExpiresAtFieldProps {
   id?: string
 }
 
-export function ExpiresAtField({
-  value,
-  onChange,
-  onBlur,
-  disabled,
-  id,
-}: ExpiresAtFieldProps) {
+export function ExpiresAtField({ value, onChange, onBlur, disabled, id }: ExpiresAtFieldProps) {
   const [presetId, setPresetId] = useState<PresetId>(value ? 'custom' : 'none')
   const { date, time } = splitLocalDateTime(value)
   const minParts = splitLocalDateTime(minLocalDateTimeValue())
@@ -85,7 +79,7 @@ export function ExpiresAtField({
 
       <div className="grid gap-3 sm:grid-cols-2">
         <label className="space-y-1.5">
-          <span className="text-xs font-medium text-muted-foreground">Data</span>
+          <span className="text-muted-foreground text-xs font-medium">Data</span>
           <Input
             id={id}
             type="date"
@@ -98,7 +92,7 @@ export function ExpiresAtField({
           />
         </label>
         <label className="space-y-1.5">
-          <span className="text-xs font-medium text-muted-foreground">Horário</span>
+          <span className="text-muted-foreground text-xs font-medium">Horário</span>
           <Input
             type="time"
             value={time}
@@ -109,12 +103,12 @@ export function ExpiresAtField({
         </label>
       </div>
 
-      <div className="flex min-h-8 items-center justify-between gap-2 rounded-xl border border-border/60 bg-muted/40 px-3 py-2 text-sm">
-        <p className="inline-flex items-center gap-2 text-muted-foreground">
+      <div className="border-border/60 bg-muted/40 flex min-h-8 items-center justify-between gap-2 rounded-xl border px-3 py-2 text-sm">
+        <p className="text-muted-foreground inline-flex items-center gap-2">
           <CalendarClock className="size-3.5 shrink-0" aria-hidden />
           {summary ? (
             <span>
-              Expira em <span className="font-medium text-foreground">{summary}</span>
+              Expira em <span className="text-foreground font-medium">{summary}</span>
             </span>
           ) : (
             <span>Link sem data de expiração</span>

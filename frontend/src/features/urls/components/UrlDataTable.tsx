@@ -1,9 +1,4 @@
-import {
-  flexRender,
-  getCoreRowModel,
-  useReactTable,
-  type ColumnDef,
-} from '@tanstack/react-table'
+import { flexRender, getCoreRowModel, useReactTable, type ColumnDef } from '@tanstack/react-table'
 import { Copy, ExternalLink, Eye, Lock, MoreHorizontal, Trash2 } from 'lucide-react'
 import { useMemo } from 'react'
 import { Link } from 'react-router-dom'
@@ -26,7 +21,12 @@ import {
   TableHeader,
   TableRow,
 } from '@/shared/components/ui/table'
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/shared/components/ui/tooltip'
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from '@/shared/components/ui/tooltip'
 
 interface UrlDataTableProps {
   urls: Url[]
@@ -68,11 +68,11 @@ export function UrlDataTable({ urls, isLoading, onDelete }: UrlDataTableProps) {
         header: 'Link curto',
         cell: ({ row }) => (
           <div className="flex items-center gap-2">
-            <code className="rounded-lg bg-muted/80 px-2 py-1 text-xs">{row.original.slug}</code>
+            <code className="bg-muted/80 rounded-lg px-2 py-1 text-xs">{row.original.slug}</code>
             {row.original.has_password && (
               <Tooltip>
                 <TooltipTrigger>
-                  <Lock className="size-3.5 text-muted-foreground" />
+                  <Lock className="text-muted-foreground size-3.5" />
                 </TooltipTrigger>
                 <TooltipContent>Protegida por senha</TooltipContent>
               </Tooltip>
@@ -149,7 +149,7 @@ export function UrlDataTable({ urls, isLoading, onDelete }: UrlDataTableProps) {
 
   if (isLoading) {
     return (
-      <div className="space-y-3 rounded-xl border border-border/70 bg-card/80 p-4 backdrop-blur-xl">
+      <div className="border-border/70 bg-card/80 space-y-3 rounded-xl border p-4 backdrop-blur-xl">
         {Array.from({ length: 5 }).map((_, index) => (
           <Skeleton key={index} className="h-11 w-full" />
         ))}
@@ -159,10 +159,10 @@ export function UrlDataTable({ urls, isLoading, onDelete }: UrlDataTableProps) {
 
   if (urls.length === 0) {
     return (
-      <div className="rounded-xl border border-dashed border-border/70 bg-card/50 px-6 py-12 text-center backdrop-blur-xl">
-        <ExternalLink className="mx-auto mb-3 size-8 text-muted-foreground" />
+      <div className="border-border/70 bg-card/50 rounded-xl border border-dashed px-6 py-12 text-center backdrop-blur-xl">
+        <ExternalLink className="text-muted-foreground mx-auto mb-3 size-8" />
         <p className="font-display text-lg font-semibold">Nenhuma URL ainda</p>
-        <p className="mt-1 text-sm text-muted-foreground">
+        <p className="text-muted-foreground mt-1 text-sm">
           Crie seu primeiro link curto para começar.
         </p>
       </div>
@@ -171,7 +171,7 @@ export function UrlDataTable({ urls, isLoading, onDelete }: UrlDataTableProps) {
 
   return (
     <TooltipProvider>
-      <div className="rounded-xl border border-border/70 bg-card/80 backdrop-blur-xl">
+      <div className="border-border/70 bg-card/80 rounded-xl border backdrop-blur-xl">
         <Table>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (

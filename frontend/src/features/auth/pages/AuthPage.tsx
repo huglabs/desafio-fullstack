@@ -1,6 +1,6 @@
-import { AuthBrandHeader } from "@/features/auth/components/AuthBrandHeader";
-import { AuthFormCard } from "@/features/auth/components/AuthFormCard";
-import { AppShell } from "@/shared/components/AppShell";
+import { AuthBrandHeader } from '@/features/auth/components/AuthBrandHeader'
+import { AuthFormCard } from '@/features/auth/components/AuthFormCard'
+import { AppShell } from '@/shared/components/AppShell'
 
 export function AuthPage() {
   return (
@@ -10,5 +10,5 @@ export function AuthPage() {
         <AuthFormCard />
       </div>
     </AppShell>
-  );
+  )
 }

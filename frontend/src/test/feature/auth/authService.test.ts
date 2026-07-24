@@ -39,10 +39,13 @@ describe('authService', () => {
       password_confirmation: 'senha1234',
     })
 
-    expect(postMock).toHaveBeenCalledWith('/register', expect.objectContaining({
-      name: 'Luis',
-      email: 'luis@email.com',
-    }))
+    expect(postMock).toHaveBeenCalledWith(
+      '/register',
+      expect.objectContaining({
+        name: 'Luis',
+        email: 'luis@email.com',
+      }),
+    )
   })
 
   it('busca o usuário autenticado em /me', async () => {

@@ -19,7 +19,7 @@ export function UrlPagination({ meta, onPageChange, isLoading }: UrlPaginationPr
 
   return (
     <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-      <p className="text-sm text-muted-foreground">
+      <p className="text-muted-foreground text-sm">
         Mostrando {from}–{to} de {meta.total}
       </p>
       <div className="flex items-center gap-2">

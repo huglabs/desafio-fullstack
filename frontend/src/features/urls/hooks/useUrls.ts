@@ -2,7 +2,6 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { toast } from 'sonner'
 
 import { DASHBOARD_QUERY_KEY } from '@/features/home/hooks/useHomeDashboard'
-import { urlAnalyticsQueryKey } from '@/features/urls/hooks/useUrlAnalytics'
 import { urlService } from '@/features/urls/services/urlService'
 import type { CreateUrlPayload } from '@/features/urls/types/url'
 import { getApiErrorMessage } from '@/shared/lib/apiError'

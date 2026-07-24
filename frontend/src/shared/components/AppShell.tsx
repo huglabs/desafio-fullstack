@@ -24,7 +24,7 @@ export function AppShell({ children, className, gridClassName }: AppShellProps) 
         )}
       />
 
-      <div className="absolute right-4 top-4 z-20 sm:right-6 sm:top-6">
+      <div className="absolute top-4 right-4 z-20 sm:top-6 sm:right-6">
         <ThemeToggle />
       </div>
 

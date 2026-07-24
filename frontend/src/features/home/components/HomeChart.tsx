@@ -1,7 +1,13 @@
 import { formatAnalyticsChartData } from '@/features/urls/lib/analytics'
 import type { AnalyticsDay } from '@/shared/types/analytics'
 import { chartColors } from '@/shared/design-token'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/shared/components/ui/card'
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '@/shared/components/ui/card'
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from '@/shared/components/ui/chart'
 import { Skeleton } from '@/shared/components/ui/skeleton'
 import { Bar, BarChart, CartesianGrid, XAxis, YAxis } from 'recharts'
@@ -27,7 +33,7 @@ export function HomeChart({ last7Days, isLoading, isError }: HomeChartProps) {
   if (isError) {
     return (
       <Card className="border-border/70 bg-card/80 backdrop-blur-xl">
-        <CardContent className="py-10 text-center text-sm text-muted-foreground">
+        <CardContent className="text-muted-foreground py-10 text-center text-sm">
           Não foi possível carregar o gráfico.
         </CardContent>
       </Card>
@@ -44,7 +50,7 @@ export function HomeChart({ last7Days, isLoading, isError }: HomeChartProps) {
       </CardHeader>
       <CardContent>
         {chartData.every((point) => point.clicks === 0) ? (
-          <p className="py-16 text-center text-sm text-muted-foreground">
+          <p className="text-muted-foreground py-16 text-center text-sm">
             Nenhum clique registrado nos últimos 7 dias.
           </p>
         ) : (

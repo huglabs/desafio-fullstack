@@ -17,7 +17,7 @@ export function DashboardLayout() {
       <DashboardSidebar collapsed={collapsed} onToggle={() => setCollapsed((prev) => !prev)} />
 
       <div className="relative z-10 flex min-w-0 flex-1 flex-col">
-        <div className="absolute right-4 top-4 z-20 sm:right-6 sm:top-6">
+        <div className="absolute top-4 right-4 z-20 sm:top-6 sm:right-6">
           <ThemeToggle />
         </div>
 

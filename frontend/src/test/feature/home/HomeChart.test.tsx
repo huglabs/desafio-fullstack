@@ -32,9 +32,7 @@ describe('HomeChart', () => {
       />,
     )
 
-    expect(
-      screen.getByText('Nenhum clique registrado nos últimos 7 dias.'),
-    ).toBeInTheDocument()
+    expect(screen.getByText('Nenhum clique registrado nos últimos 7 dias.')).toBeInTheDocument()
   })
 
   it('mostra erro quando a carga falha', () => {

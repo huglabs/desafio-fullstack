@@ -7,12 +7,7 @@ import { PageHeader } from '@/shared/components/PageHeader'
 import { RefreshButton } from '@/shared/components/RefreshButton'
 
 export function DashboardPage() {
-  const {
-    data: dashboard,
-    isLoading,
-    isError,
-    refreshDashboard,
-  } = useHomeDashboard()
+  const { data: dashboard, isLoading, isError, refreshDashboard } = useHomeDashboard()
   const [isRefreshing, setIsRefreshing] = useState(false)
 
   async function handleRefresh() {
@@ -48,11 +43,7 @@ export function DashboardPage() {
         clicksToday={dashboard?.clicks_today ?? 0}
       />
 
-      <HomeChart
-        last7Days={dashboard?.last_7_days}
-        isLoading={isBusy}
-        isError={isError}
-      />
+      <HomeChart last7Days={dashboard?.last_7_days} isLoading={isBusy} isError={isError} />
     </div>
   )
 }

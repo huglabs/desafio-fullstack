@@ -38,15 +38,11 @@ describe('UrlAnalyticsChart', () => {
       />,
     )
 
-    expect(
-      screen.getByText('Nenhum clique registrado nos últimos 7 dias.'),
-    ).toBeInTheDocument()
+    expect(screen.getByText('Nenhum clique registrado nos últimos 7 dias.')).toBeInTheDocument()
   })
 
   it('mostra mensagem de erro quando a carga falha', () => {
-    render(
-      <UrlAnalyticsChart isLoading={false} isError analytics={undefined} />,
-    )
+    render(<UrlAnalyticsChart isLoading={false} isError analytics={undefined} />)
 
     expect(
       screen.getByText('Não foi possível carregar os analytics desta URL.'),

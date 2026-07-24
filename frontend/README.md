@@ -31,8 +31,8 @@ O backend precisa estar rodando na URL da API.
 
 ## Variáveis de ambiente
 
-| Variável | Descrição | Padrão |
-| -------- | --------- | ------ |
+| Variável       | Descrição        | Padrão                      |
+| -------------- | ---------------- | --------------------------- |
 | `VITE_API_URL` | Base da API REST | `http://localhost:8000/api` |
 
 No Docker Compose, já vem definida no serviço `frontend`.
@@ -40,22 +40,25 @@ No Docker Compose, já vem definida no serviço `frontend`.
 ## Scripts
 
 ```bash
-npm run dev       # desenvolvimento
-npm run build     # build de produção
-npm run test      # testes (Vitest)
+npm run dev          # desenvolvimento
+npm run build        # build de produção
+npm run test         # testes (Vitest)
 npm run test:watch
-npm run lint
+npm run lint         # oxlint (variáveis/imports não usados)
+npm run lint:fix     # corrige o que o oxlint conseguir
+npm run format       # prettier
+npm run clean:code   # lint:fix + format (limpeza geral)
 ```
 
 ## Telas
 
-| Rota | Descrição |
-| ---- | --------- |
-| `/auth` | Login e registro |
-| `/dashboard` | Home — resumo de URLs e cliques |
-| `/urls` | Listagem paginada + criar URL |
-| `/urls/:id` | Detalhes, analytics e copiar link |
-| `/me` | Perfil do usuário |
+| Rota         | Descrição                         |
+| ------------ | --------------------------------- |
+| `/auth`      | Login e registro                  |
+| `/dashboard` | Home — resumo de URLs e cliques   |
+| `/urls`      | Listagem paginada + criar URL     |
+| `/urls/:id`  | Detalhes, analytics e copiar link |
+| `/me`        | Perfil do usuário                 |
 
 ## Estrutura
 

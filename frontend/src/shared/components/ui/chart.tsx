@@ -44,7 +44,7 @@ function ChartContainer({
       <div
         data-chart={chartId}
         className={cn(
-          'flex aspect-video justify-center text-xs [&_.recharts-cartesian-axis-tick_text]:fill-muted-foreground [&_.recharts-cartesian-grid_line[stroke="#ccc"]]:stroke-border/50 [&_.recharts-curve.recharts-tooltip-cursor]:stroke-border [&_.recharts-dot[stroke="#fff"]]:stroke-transparent [&_.recharts-layer]:outline-none [&_.recharts-polar-grid_[stroke="#ccc"]]:stroke-border [&_.recharts-radial-bar-background-sector]:fill-muted [&_.recharts-rectangle.recharts-tooltip-cursor]:fill-muted [&_.recharts-reference-line_[stroke="#ccc"]]:stroke-border [&_.recharts-sector[stroke="#fff"]]:stroke-transparent [&_.recharts-surface]:outline-none',
+          '[&_.recharts-cartesian-axis-tick_text]:fill-muted-foreground [&_.recharts-cartesian-grid_line[stroke="#ccc"]]:stroke-border/50 [&_.recharts-curve.recharts-tooltip-cursor]:stroke-border [&_.recharts-polar-grid_[stroke="#ccc"]]:stroke-border [&_.recharts-radial-bar-background-sector]:fill-muted [&_.recharts-rectangle.recharts-tooltip-cursor]:fill-muted [&_.recharts-reference-line_[stroke="#ccc"]]:stroke-border flex aspect-video justify-center text-xs [&_.recharts-dot[stroke="#fff"]]:stroke-transparent [&_.recharts-layer]:outline-none [&_.recharts-sector[stroke="#fff"]]:stroke-transparent [&_.recharts-surface]:outline-none',
           className,
         )}
         {...props}
@@ -70,8 +70,7 @@ function ChartStyle({ id, config }: { id: string; config: ChartConfig }) {
 ${prefix} [data-chart=${id}] {
 ${colorConfig
   .map(([key, itemConfig]) => {
-    const color =
-      itemConfig.theme?.[theme as keyof typeof itemConfig.theme] || itemConfig.color
+    const color = itemConfig.theme?.[theme as keyof typeof itemConfig.theme] || itemConfig.color
     return color ? `  --color-${key}: ${color};` : null
   })
   .join('\n')}
@@ -111,7 +110,7 @@ function ChartTooltipContent({
   return (
     <div
       className={cn(
-        'grid min-w-[8rem] items-start gap-1.5 rounded-xl border border-border/70 bg-card px-2.5 py-1.5 text-xs shadow-xl',
+        'border-border/70 bg-card grid min-w-[8rem] items-start gap-1.5 rounded-xl border px-2.5 py-1.5 text-xs shadow-xl',
         className,
       )}
     >
@@ -129,10 +128,8 @@ function ChartTooltipContent({
                 style={{ backgroundColor: indicatorColor }}
               />
               <div className="flex flex-1 justify-between gap-4 leading-none">
-                <span className="text-muted-foreground">
-                  {itemConfig?.label || item.name}
-                </span>
-                <span className="font-mono font-medium tabular-nums text-foreground">
+                <span className="text-muted-foreground">{itemConfig?.label || item.name}</span>
+                <span className="text-foreground font-mono font-medium tabular-nums">
                   {item.value?.toLocaleString()}
                 </span>
               </div>

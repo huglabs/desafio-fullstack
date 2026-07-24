@@ -41,6 +41,7 @@ Copie `.env.example` para `.env`. Principais:
 | `CACHE_STORE` | `redis` em produção/dev Docker |
 | `REDIS_HOST` | Host Redis (`redis` no Compose) |
 | `FRONTEND_URL` | CORS / Sanctum |
+| `SANCTUM_TOKEN_EXPIRATION` | Expiração do token Sanctum em minutos (padrão: `1440` = 24h) |
 
 No Docker Compose, essas variáveis já vêm configuradas no serviço `backend`.
 

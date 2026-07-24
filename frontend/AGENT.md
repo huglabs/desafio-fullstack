@@ -8,11 +8,11 @@ React 19, TypeScript, Vite, Tailwind 4, shadcn/ui (new-york), TanStack Query, Zu
 
 **Todo componente pertence à sua feature ou a `shared`. Não há terceira opção.**
 
-| Onde | O quê |
-|------|--------|
-| `features/<feature>/components/` | UI usada só (ou principalmente) por aquela feature |
-| `shared/components/` | UI reutilizada por 2+ features (layout, StatCard, ThemeToggle) |
-| `shared/components/ui/` | Primitives shadcn |
+| Onde                             | O quê                                                          |
+| -------------------------------- | -------------------------------------------------------------- |
+| `features/<feature>/components/` | UI usada só (ou principalmente) por aquela feature             |
+| `shared/components/`             | UI reutilizada por 2+ features (layout, StatCard, ThemeToggle) |
+| `shared/components/ui/`          | Primitives shadcn                                              |
 
 Regras:
 

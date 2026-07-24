@@ -1,5 +1,4 @@
 import { useQuery, useQueryClient } from '@tanstack/react-query'
-import { toast } from 'sonner'
 
 import { DASHBOARD_QUERY_KEY } from '@/features/home/hooks/useHomeDashboard'
 import { urlService } from '@/features/urls/services/urlService'

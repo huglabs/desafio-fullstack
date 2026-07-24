@@ -6,7 +6,11 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
-    "lint": "oxlint",
+    "lint": "oxlint --import-plugin src",
+    "lint:fix": "oxlint --fix --import-plugin src",
+    "format": "prettier --write \"src/**/*.{ts,tsx,css}\" \"*.{html,json,md,js}\"",
+    "format:check": "prettier --check \"src/**/*.{ts,tsx,css}\" \"*.{html,json,md,js}\"",
+    "clean:code": "npm run lint:fix && npm run format",
     "preview": "vite preview",
     "test": "vitest run",
     "test:watch": "vitest"
@@ -49,6 +53,8 @@
     "@vitejs/plugin-react": "^6.0.3",
     "jsdom": "^29.1.1",
     "oxlint": "^1.71.0",
+    "prettier": "^3.9.6",
+    "prettier-plugin-tailwindcss": "^0.8.1",
     "typescript": "~6.0.2",
     "vite": "^8.1.1",
     "vitest": "^4.1.10"

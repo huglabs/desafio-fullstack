@@ -83,11 +83,7 @@ export function LoginForm() {
             <FormItem>
               <FormLabel>Senha</FormLabel>
               <FormControl>
-                <PasswordInput
-                  placeholder="••••••••"
-                  autoComplete="current-password"
-                  {...field}
-                />
+                <PasswordInput placeholder="••••••••" autoComplete="current-password" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>

@@ -86,6 +86,7 @@ O backend precisa estar acessível na URL configurada em `VITE_API_URL`.
 | `REDIS_CLIENT`                | Cliente Redis                  | `predis`                |
 | `FRONTEND_URL`                | Origem do SPA (CORS/Sanctum)   | `http://localhost:5173` |
 | `SANCTUM_STATEFUL_DOMAINS`    | Domínios stateful              | `localhost:5173`        |
+| `SANCTUM_TOKEN_EXPIRATION`    | Expiração do token (minutos)   | `1440` (24h)            |
 
 ### Frontend
 

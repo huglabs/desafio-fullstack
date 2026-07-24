@@ -1,5 +1,4 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import { isAxiosError } from 'axios'
 
 import { authService } from '@/features/auth/services/authService'
 import { useAuthStore } from '@/features/auth/stores/authStore'
@@ -59,21 +58,13 @@ export function useLogout() {
 export function useMe() {
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated)
   const setUser = useAuthStore((state) => state.setUser)
-  const clearAuth = useAuthStore((state) => state.clearAuth)
 
   return useQuery({
     queryKey: ['me'],
     queryFn: async () => {
-      try {
-        const response = await authService.me()
-        setUser(response.data.user)
-        return response.data
-      } catch (error) {
-        if (isAxiosError(error) && error.response?.status === 401) {
-          clearAuth()
-        }
-        throw error
-      }
+      const response = await authService.me()
+      setUser(response.data.user)
+      return response.data
     },
     enabled: isAuthenticated,
     retry: false,

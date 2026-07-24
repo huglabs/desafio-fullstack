@@ -20,9 +20,7 @@ export function UrlInfoCard({ url }: UrlInfoCardProps) {
         <InfoRow
           label="Expira em"
           value={
-            url.expires_at
-              ? new Date(url.expires_at).toLocaleString('pt-BR')
-              : 'Sem expiração'
+            url.expires_at ? new Date(url.expires_at).toLocaleString('pt-BR') : 'Sem expiração'
           }
         />
         <InfoRow
@@ -45,8 +43,8 @@ export function UrlInfoCard({ url }: UrlInfoCardProps) {
 function InfoRow({ label, value }: { label: string; value: ReactNode }) {
   return (
     <div>
-      <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">{label}</p>
-      <p className="mt-1 break-all text-sm">{value}</p>
+      <p className="text-muted-foreground text-xs font-medium tracking-wide uppercase">{label}</p>
+      <p className="mt-1 text-sm break-all">{value}</p>
     </div>
   )
 }

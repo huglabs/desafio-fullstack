@@ -5,14 +5,7 @@ import { HomeStats } from '@/features/home/components/HomeStats'
 
 describe('HomeStats', () => {
   it('mostra os totais quando carregado', () => {
-    render(
-      <HomeStats
-        isLoading={false}
-        totalUrls={12}
-        totalClicks={340}
-        clicksToday={8}
-      />,
-    )
+    render(<HomeStats isLoading={false} totalUrls={12} totalClicks={340} clicksToday={8} />)
 
     expect(screen.getByText('Total de URLs')).toBeInTheDocument()
     expect(screen.getByText('12')).toBeInTheDocument()

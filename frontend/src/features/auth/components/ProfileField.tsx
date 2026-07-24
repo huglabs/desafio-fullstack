@@ -8,7 +8,7 @@ interface ProfileFieldProps {
 export function ProfileField({ label, value }: ProfileFieldProps) {
   return (
     <div>
-      <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">{label}</p>
+      <p className="text-muted-foreground text-xs font-medium tracking-wide uppercase">{label}</p>
       <p className="mt-1 text-base">{value}</p>
     </div>
   )

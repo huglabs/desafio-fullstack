@@ -53,15 +53,7 @@ describe('DeleteUrlAlert', () => {
   })
 
   it('mostra estado de carregamento no botão', () => {
-    render(
-      <DeleteUrlAlert
-        url={url}
-        open
-        onOpenChange={vi.fn()}
-        onConfirm={vi.fn()}
-        isPending
-      />,
-    )
+    render(<DeleteUrlAlert url={url} open onOpenChange={vi.fn()} onConfirm={vi.fn()} isPending />)
 
     expect(screen.getByRole('button', { name: 'Excluindo...' })).toBeDisabled()
   })

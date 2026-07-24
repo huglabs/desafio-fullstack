@@ -2,7 +2,12 @@ import { useLogout } from '@/features/auth/hooks/useAuth'
 import { useAuthStore } from '@/features/auth/stores/authStore'
 import { Button } from '@/shared/components/ui/button'
 import { Separator } from '@/shared/components/ui/separator'
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/shared/components/ui/tooltip'
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from '@/shared/components/ui/tooltip'
 import { cn } from '@/shared/lib/utils'
 import { ChevronLeft, ChevronRight, Home, Link2, LogOut, UserCircle } from 'lucide-react'
 import { NavLink } from 'react-router-dom'
@@ -20,7 +25,7 @@ export function DashboardSidebar({ collapsed, onToggle }: DashboardSidebarProps)
     <TooltipProvider delayDuration={0}>
       <aside
         className={cn(
-          'flex h-svh shrink-0 flex-col border-r border-border/70 bg-card/80 backdrop-blur-xl transition-[width] duration-300',
+          'border-border/70 bg-card/80 flex h-svh shrink-0 flex-col border-r backdrop-blur-xl transition-[width] duration-300',
           collapsed ? 'w-16' : 'w-64',
         )}
       >
@@ -58,9 +63,9 @@ export function DashboardSidebar({ collapsed, onToggle }: DashboardSidebarProps)
           <Separator className="mb-3 opacity-60" />
 
           {!collapsed && user && (
-            <div className="mb-2 rounded-xl bg-muted/50 px-3 py-2">
-              <p className="truncate text-sm font-medium text-foreground">{user.name}</p>
-              <p className="truncate text-xs text-muted-foreground">{user.email}</p>
+            <div className="bg-muted/50 mb-2 rounded-xl px-3 py-2">
+              <p className="text-foreground truncate text-sm font-medium">{user.name}</p>
+              <p className="text-muted-foreground truncate text-xs">{user.email}</p>
             </div>
           )}
 

@@ -1,11 +1,14 @@
-import { Plus } from 'lucide-react'
-import { useState } from 'react'
-
 import { useMe } from '@/features/auth/hooks/useAuth'
 import { ProfileField, ProfileFieldSkeleton } from '@/features/auth/components/ProfileField'
 import { useAuthStore } from '@/features/auth/stores/authStore'
 import { PageHeader } from '@/shared/components/PageHeader'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/shared/components/ui/card'
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '@/shared/components/ui/card'
 
 export function ProfilePage() {
   const user = useAuthStore((state) => state.user)
@@ -14,10 +17,7 @@ export function ProfilePage() {
 
   return (
     <div className="mx-auto max-w-2xl space-y-8">
-      <PageHeader
-        title="Meu perfil"
-        description="Dados da sua conta autenticada."
-      />
+      <PageHeader title="Meu perfil" description="Dados da sua conta autenticada." />
 
       <Card className="border-border/70 bg-card/80 backdrop-blur-xl">
         <CardHeader>

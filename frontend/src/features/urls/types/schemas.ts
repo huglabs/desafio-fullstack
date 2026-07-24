@@ -1,9 +1,7 @@
 import { z } from 'zod'
 
 export const createUrlSchema = z.object({
-  original_url: z
-    .url('A URL deve ser válida')
-    .min(1, 'Informe a URL original'),
+  original_url: z.url('A URL deve ser válida').min(1, 'Informe a URL original'),
   expires_at: z.string().optional(),
   password: z
     .string()

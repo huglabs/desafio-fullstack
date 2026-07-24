@@ -100,4 +100,38 @@ class AuthTest extends TestCase
 
         $this->assertDatabaseCount('personal_access_tokens', 0);
     }
+
+    public function test_login_token_expires_in_24_hours(): void
+    {
+        User::factory()->create([
+            'email' => 'login@example.com',
+            'password' => 'password123',
+        ]);
+
+        $this->postJson('/api/login', [
+            'email' => 'login@example.com',
+            'password' => 'password123',
+        ])->assertOk();
+
+        $token = User::where('email', 'login@example.com')
+            ->firstOrFail()
+            ->tokens()
+            ->first();
+
+        $this->assertNotNull($token->expires_at);
+        $this->assertTrue(
+            $token->expires_at->between(now()->addHours(23), now()->addHours(25)),
+        );
+    }
+
+    public function test_expired_token_returns_unauthorized(): void
+    {
+        $user = User::factory()->create();
+        $tokenResult = $user->createToken('auth');
+        $tokenResult->accessToken->forceFill(['expires_at' => now()->subMinute()])->save();
+
+        $this->withHeader('Authorization', 'Bearer '.$tokenResult->plainTextToken)
+            ->getJson('/api/me')
+            ->assertUnauthorized();
+    }
 }

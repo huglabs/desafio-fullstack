@@ -11,11 +11,11 @@ export function StatCard({ title, value, description }: StatCardProps) {
   return (
     <Card className="border-border/70 bg-card/80 backdrop-blur-xl">
       <CardHeader className="pb-2">
-        <CardTitle className="text-sm font-medium text-muted-foreground">{title}</CardTitle>
+        <CardTitle className="text-muted-foreground text-sm font-medium">{title}</CardTitle>
       </CardHeader>
       <CardContent>
         <p className="font-display text-3xl font-bold tracking-tight">{value}</p>
-        {description && <p className="mt-1 text-xs text-muted-foreground">{description}</p>}
+        {description && <p className="text-muted-foreground mt-1 text-xs">{description}</p>}
       </CardContent>
     </Card>
   )
