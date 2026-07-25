@@ -21,7 +21,7 @@ class MessageSent implements ShouldBroadcastNow
         $this->message = $message;
     }
 
-    // Definimos em qual canal esta mensagem será transmitida
+    // Define em qual canal esta mensagem será transmitida
     public function broadcastOn(): array
     {
         // Canal específico para a sala, ex: 'room.1', 'room.2'
