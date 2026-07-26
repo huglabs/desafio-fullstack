@@ -4,7 +4,7 @@ Este repositório contém a solução para o Desafio Técnico de criação de um
 
 ---
 
-## 🚀 Tecnologias Utilizadas
+## 🧑‍💻 Tecnologias Utilizadas
 
 ### Backend:
 - **Laravel 13**: Framework base.
@@ -138,11 +138,19 @@ O foco foi dado aos critérios de maior peso (Qualidade do Código e Integraçã
 2. **Mensagens Privadas (DMs) e Upload de Imagens**: Optei por focar na estabilidade e robustez do chat em grupo (salas). A adição de DMs e uploads exigiria configurações de bloqueio de acesso público e modelagens de banco mais complexas que poderiam comprometer o fluxo principal no tempo hábil.
 
 ---
+## 🚀 Deploy
+O deploy da aplicação pode ser acessado por meio dos links:
 
+Frontend (React): https://desafio-fullstack.netlify.app 
+
+Backend API (Laravel): https://desafio-fullstack-production-35e4.up.railway.app
+
+Reverb (WebSocket): reverb-production-f17b.up.railway.app
 ## ⚙️ Como rodar o projeto localmente
 
 ### Pré-requisitos
 - [Docker](https://www.docker.com/) e Docker Compose instalados.
+- PHP/Composer
 ### Passo a Passo
 
 1. **Clone o repositório:**
@@ -152,15 +160,18 @@ O foco foi dado aos critérios de maior peso (Qualidade do Código e Integraçã
 2. **Configure os arquivos de ambiente**:
     
     Copie os arquivos de exemplo `.env.example` dentro das pastas `backend/` e `frontend/` para `.env`.
-3. **Suba os containers Docker**:
+3. **Instale as dependências do Laravel**
+    ```bash
+    cd backend && composer install && cd ..
+4. **Suba os containers Docker**:
     ```bash
     docker compose up --build
-4. gere a chave da aplicação e execute as migrações do banco de dados:
+5. gere a chave da aplicação e execute as migrações do banco de dados:
 
     ```bash
     docker exec -it laravel_api php artisan key:generate
     docker exec -it laravel_api php artisan migrate --seed
-5. Acesse a aplicação:
+6. Acesse a aplicação:
 
     Frontend (React): http://localhost:5173
 
