@@ -147,7 +147,7 @@ O foco foi dado aos critérios de maior peso (Qualidade do Código e Integraçã
 
 1. **Clone o repositório:**
    ```bash
-   git clone [https://github.com/Jefferson-Antonio/desafio-fullstack/tree/challenge-realtime-chat](https://github.com/Jefferson-Antonio/desafio-fullstack.git)
+   git clone -b challenge-realtime-chat https://github.com/Jefferson-Antonio/desafio-fullstack.git
    cd desafio-fullstack
 2. **Configure os arquivos de ambiente**:
     
