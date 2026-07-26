@@ -1,0 +1,26 @@
+.areaChat {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+    position: relative;
+}
+
+.areaChat::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+  background-image: url('/chat.svg');
+  background-repeat: repeat; 
+  background-size: 500px auto; 
+  opacity: 0.05; 
+}
+
+.areaChat > * {
+  position: relative;
+  z-index: 1;
+}

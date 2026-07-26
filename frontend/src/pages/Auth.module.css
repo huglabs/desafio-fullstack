@@ -1,0 +1,58 @@
+/*body {
+    background-color: var(--primary);
+}*/
+
+.divForm {
+    background-color: rgba(208, 231, 230, 0.7);
+    margin: 10% auto;
+    padding: 2rem 3rem;
+    border-radius: 20px;
+    max-width: 500px;
+}
+
+h2 {
+    font-size: 2rem;
+    margin: 30px;
+}
+
+.inputLoginRegister {
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid #000;
+    font-size: 1.1rem;
+    
+}
+
+.inputLoginRegister:focus {
+    outline: none;
+}
+
+.submitButton {
+    width: 100%;
+    height: 40px;
+    background: #fff;
+    border: none;
+    outline: none;
+    border-radius: 40px;
+    cursor: pointer;
+    font-size: 1em;
+    color: #000;
+    font-weight: 500;
+    transition: box-shadow 0.5s ease;
+}
+
+.submitButton:hover {
+    box-shadow: 0 10px 5px rgba(255, 255, 255, .3);
+}
+
+.loginRegister {
+    font-size: 1rem;
+    color: #000;
+    text-align: center;
+    margin: 25px 0 10px;
+    cursor: pointer;
+}
+
+.loginRegister:hover {
+    text-decoration: underline;
+}

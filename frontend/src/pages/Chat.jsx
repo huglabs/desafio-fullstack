@@ -3,6 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../contexts/AuthContext';
 import api from '../services/api';
 import echo from '../services/echo';
+import styles from './Chat.module.css';
 
 export default function Chat() {
     const { roomId } = useParams();
@@ -117,7 +118,7 @@ export default function Chat() {
             {/* Área principal do Chat */}
             <div style={{ flex: 1, display: 'flex', flexDirection: 'column', background: '#f5f5f5' }}>
                 {/* Lista de Mensagens */}
-                <div style={{ flex: 1, padding: '20px', overflowY: 'auto' }}>
+                <div className={styles.areaChat}>
                     {messages.map((msg, index) => {
                         const isMine = msg.user.id === user.id;
                         return (

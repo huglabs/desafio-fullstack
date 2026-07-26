@@ -64,9 +64,9 @@ export default function Rooms() {
 
     return (
         <div style={{ maxWidth: '600px', margin: '30px auto', fontFamily: 'sans-serif' }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
+            <div style={{ width: '400px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px', background: '#f5f5f5' }}>
                 <h2>Olá, {user?.name}! 👋</h2>
-                <button onClick={handleLogout} style={{ padding: '5px 10px', background: '#ff4444', color: '#fff', border: 'none', borderRadius: '4px', cursor: 'pointer' }}>
+                <button onClick={handleLogout} style={{ marginRight: '10px', padding: '5px 10px', background: '#ff4444', color: '#fff', border: 'none', borderRadius: '4px', cursor: 'pointer' }}>
                     Sair
                 </button>
             </div>
